@@ -22,37 +22,38 @@ const education = [
 export default function Home() {
   const [menu, setMenu] = useState(false)
   const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    const reveal = () => document.querySelectorAll('.reveal').forEach((el) => {
-      if (el.getBoundingClientRect().top < window.innerHeight * .88) el.classList.add('visible')
+useEffect(() => {
+  const reveal = () => {
+    document.querySelectorAll('.reveal').forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
+        el.classList.add('visible')
+      }
     })
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      setProgress(max ? window.scrollY / max : 0)
-      document.documentElement.style.setProperty('--scroll', `${window.scrollY}px`)
-      reveal()
-    }
-    const onMove = (e: MouseEvent) => {
-      document.documentElement.style.setProperty('--mx', `${e.clientX}px`)
-      document.documentElement.style.setProperty('--my', `${e.clientY}px`)
-    }
+  }
+
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    setProgress(max ? window.scrollY / max : 0)
+    document.documentElement.style.setProperty('--scroll', `${window.scrollY}px`)
     reveal()
-onScroll()
+  }
 
-window.addEventListener('scroll', onScroll)
-window.addEventListener('mousemove', onMove)
+  const onMove = (e: MouseEvent) => {
+    document.documentElement.style.setProperty('--mx', `${e.clientX}px`)
+    document.documentElement.style.setProperty('--my', `${e.clientY}px`)
+  }
 
-return () => {
-  window.removeEventListener('scroll', onScroll)
-  window.removeEventListener('mousemove', onMove)
-}
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('mousemove', onMove)
-    reveal(); onScroll()
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('mousemove', onMove) }
-  }, [])
+  reveal()
+  onScroll()
 
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('mousemove', onMove)
+
+  return () => {
+    window.removeEventListener('scroll', onScroll)
+    window.removeEventListener('mousemove', onMove)
+  }
+}, [])
   const go = (id: string) => { setMenu(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
 
   return <main>
