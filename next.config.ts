@@ -1,15 +1,17 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  output: 'export',
+reactStrictMode: true,
 
-  basePath: '/irshad-cinematic-portfolioo',
-  assetPrefix: '/irshad-cinematic-portfolioo/',
+output: 'export',
 
-  images: {
-    unoptimized: true,
-  },
+basePath: '/portfolio',
+
+assetPrefix: '/portfolio/',
+
+images: {
+unoptimized: true,
+},
 }
 
 export default nextConfig
