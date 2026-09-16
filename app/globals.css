@@ -250,12 +250,22 @@ z-index:5;
 max-width:900px;
 }
 
+/* =========================
+LARGER PORTFOLIO TEXT
+========================= */
+
 .eyebrow{
-font-size:10px;
+font-size:15px;
+font-weight:500;
 letter-spacing:.22em;
-color:#999;
-margin-bottom:30px;
+color:#d0d0d0;
+margin-bottom:35px;
+text-transform:uppercase;
 }
+
+/* =========================
+HERO TITLE
+========================= */
 
 .heroTitle{
 font-size:clamp(65px,10vw,160px);
@@ -782,6 +792,12 @@ opacity:.65;
 
 .heroContent{
 margin-top:28vh;
+}
+
+.eyebrow{
+font-size:12px;
+letter-spacing:.17em;
+margin-bottom:28px;
 }
 
 .heroTitle{
