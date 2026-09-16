@@ -455,6 +455,3 @@ transform: `scaleX(${progress})`,
 
 )
 }
-
-```
-```
