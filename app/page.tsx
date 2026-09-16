@@ -136,11 +136,13 @@ useEffect(() => {
       <div className="eduList">{education.map(([degree, uni, years], i) => <article className="eduRow reveal" key={degree}><span>0{i + 1}</span><div><h3>{degree}</h3><p>{uni}</p></div><time>{years}</time></article>)}</div>
     </section>
 
-    <section id="contact" className="section contact">
-      <div className="sectionLabel reveal">06 / CONTACT</div>
-      <h2 className="contactTitle reveal">LET’S BUILD<br/><span className="accent">SOMETHING.</span></h2>
-      <div className="contactLine reveal"><a href="mailto:Irshadgck@outlook.com">IRSHADGCK@OUTLOOK.COM</a><a href="https://github.com/irshadazka2415" target="_blank" rel="noreferrer">GITHUB ↗</a></div>
-      <footer><span>IRSHAD.</span><span>BUSINESS · DIGITAL · EXPERIENCE</span><span>© 2026</span></footer>
+   <section id="contact" className="section contact"> <div className="sectionLabel reveal">06 / GET IN TOUCH</div>
+
+<h2 className="contactTitle reveal"> MOHAMED<br/> <span className="accent">IRSHAD.</span> </h2>
+
+<div className="contactLine reveal"> <a href="mailto:Irshadgck@outlook.com">IRSHADGCK@OUTLOOK.COM</a> <a href="https://github.com/irshadazka2415" target="_blank" rel="noreferrer"> GITHUB ↗ </a> </div>
+
+<footer> <span>IRSHAD.</span> <span>BUSINESS · DIGITAL · EXPERIENCE</span> <span>© 2026</span> </footer> </section>
     </section>
   </main>
 }
