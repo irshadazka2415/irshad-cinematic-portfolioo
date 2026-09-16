@@ -58,7 +58,7 @@ export default function Home() {
     </nav>
 
     <section id="top" className="hero section">
-      <div className="heroImageWrap reveal"><img className="heroImage" src="/irshad.jpg" alt="Irshad in London" /></div>
+      <div className="heroImageWrap reveal"><img className="heroImage" src="/irshad-cinematic-portfolioo/irshad.jpg" alt="Irshad in London" /></div>
       <div className="heroShade" />
       <div className="heroContent">
         <div className="eyebrow reveal">PORTFOLIO · 2026 · LONDON / SRI LANKA</div>
