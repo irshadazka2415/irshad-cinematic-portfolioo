@@ -24,8 +24,12 @@ export default function Home() {
   const [progress, setProgress] = useState(0)
 useEffect(() => {
   const reveal = () => {
-    document.querySelectorAll('.reveal').forEach((el) => {
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
+    const elements = document.querySelectorAll('.reveal')
+
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect()
+
+      if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
         el.classList.add('visible')
       }
     })
@@ -33,8 +37,14 @@ useEffect(() => {
 
   const onScroll = () => {
     const max = document.documentElement.scrollHeight - window.innerHeight
-    setProgress(max ? window.scrollY / max : 0)
-    document.documentElement.style.setProperty('--scroll', `${window.scrollY}px`)
+
+    setProgress(max > 0 ? window.scrollY / max : 0)
+
+    document.documentElement.style.setProperty(
+      '--scroll',
+      `${window.scrollY}px`
+    )
+
     reveal()
   }
 
@@ -43,11 +53,11 @@ useEffect(() => {
     document.documentElement.style.setProperty('--my', `${e.clientY}px`)
   }
 
-  reveal()
-  onScroll()
-
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('mousemove', onMove)
+
+  // Only reveal elements currently visible when the page loads
+  requestAnimationFrame(reveal)
 
   return () => {
     window.removeEventListener('scroll', onScroll)
