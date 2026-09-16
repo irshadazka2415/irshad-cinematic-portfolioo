@@ -1,621 +1,435 @@
+```tsx
 'use client'
 
 import { useEffect, useState } from 'react'
 
 const experience = [
-{
-year: '2025 — 2026',
-role: 'Cluster & Meetings Group Sales',
-company: 'The Clermont Group · London',
-text: 'Relationship building, meeting coordination, administration and cross-functional business operations.',
-},
-{
-year: '2023 — 2025',
-role: 'Business & Hospitality Operations · MBA Placement',
-company: 'Royal Horseguards Hotel · London',
-text: 'Business development, guest relations, events, sales & marketing, operational coordination and customer experience.',
-},
-{
-year: '2022 — 2023',
-role: 'Finance Work Experience Mentee',
-company: 'PwC · London',
-text: 'Mentoring, networking and exposure to audit, risk and professional business operations.',
-},
-{
-year: '2022 — 2023',
-role: 'External Assessor',
-company: 'City of London College · London',
-text: 'Student mentoring, development planning and employability workshops.',
-},
-{
-year: '2018 — 2019',
-role: 'Business Development Executive',
-company: 'Plus Business Solutions · Colombo',
-text: 'Customer needs assessment, relationship management and sales across the product/service portfolio.',
-},
-{
-year: '2018',
-role: 'Tele Business Development Executive',
-company: 'W. I Tel Solutions · Colombo',
-text: 'Marketing reports, sales data and campaign development.',
-},
+  {
+    year: '2025—2026',
+    role: 'Cluster & Meetings Group Sales',
+    company: 'The Clermont Group',
+    location: 'London',
+  },
+  {
+    year: '2023—2025',
+    role: 'Business & Hospitality Operations · MBA Placement',
+    company: 'Royal Horseguards Hotel',
+    location: 'London',
+  },
+  {
+    year: '2022—2023',
+    role: 'Finance Work Experience Mentee',
+    company: 'PwC',
+    location: 'London',
+  },
+  {
+    year: '2022—2023',
+    role: 'External Assessor',
+    company: 'City of London College',
+    location: 'London',
+  },
+  {
+    year: '2018—2019',
+    role: 'Business Development Executive',
+    company: 'Plus Business Solutions',
+    location: 'Colombo',
+  },
+  {
+    year: '2018',
+    role: 'Tele Business Development Executive',
+    company: 'W. I Tel Solutions',
+    location: 'Colombo',
+  },
 ]
 
 const skills = [
-'Business Development',
-'Sales & Relationship Management',
-'Customer Experience',
-'Strategic Planning',
-'Project Management',
-'Stakeholder Engagement',
-'Digital Marketing',
-'Social Media',
-'SEO & Analytics',
-'Inventory & Operations',
-'Problem Solving',
-'MS Office',
+  'Business Development',
+  'Sales & Relationship Management',
+  'Customer Experience',
+  'Strategic Planning',
+  'Project Management',
+  'Stakeholder Engagement',
+  'Digital Marketing',
+  'Social Media',
+  'SEO & Analytics',
+  'Inventory & Operations',
+  'Problem Solving',
+  'MS Office',
 ]
 
 const education = [
-[
-'Master’s in International Business Management',
-'University of Greenwich',
-'2022 — 2024',
-],
-[
-'Bachelor’s in International Business Management · First Class Honours',
-'University of West London',
-'2020 — 2021',
-],
-[
-'HND in Business Management · Marketing Special',
-'Cardiff Metropolitan University',
-'2016 — 2018',
-],
+  {
+    year: '2022—2024',
+    degree: "Master's in International Business Management",
+    school: 'University of Greenwich',
+  },
+  {
+    year: '2020—2021',
+    degree: "Bachelor's in International Business Management · First Class Honours",
+    school: 'University of West London',
+  },
+  {
+    year: '2016—2018',
+    degree: 'HND in Business Management · Marketing Special',
+    school: 'Cardiff Metropolitan University',
+  },
 ]
 
 export default function Home() {
-const [menu, setMenu] = useState(false)
-const [progress, setProgress] = useState(0)
+  const [menu, setMenu] = useState(false)
+  const [progress, setProgress] = useState(0)
 
-useEffect(() => {
-const elements = document.querySelectorAll('.reveal')
+  useEffect(() => {
+    const elements = document.querySelectorAll('.reveal')
 
-```
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px',
       }
+    )
+
+    elements.forEach((element) => {
+      observer.observe(element)
     })
-  },
-  {
-    threshold: 0.12,
-    rootMargin: '0px 0px -8% 0px',
+
+    const updateProgress = () => {
+      const max =
+        document.documentElement.scrollHeight -
+        window.innerHeight
+
+      setProgress(max > 0 ? window.scrollY / max : 0)
+
+      document.documentElement.style.setProperty(
+        '--scroll',
+        `${window.scrollY}px`
+      )
+    }
+
+    const onMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty(
+        '--mx',
+        `${e.clientX}px`
+      )
+
+      document.documentElement.style.setProperty(
+        '--my',
+        `${e.clientY}px`
+      )
+    }
+
+    window.addEventListener('scroll', updateProgress, {
+      passive: true,
+    })
+
+    window.addEventListener('mousemove', onMove)
+
+    updateProgress()
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', updateProgress)
+      window.removeEventListener('mousemove', onMove)
+    }
+  }, [])
+
+  const go = (id: string) => {
+    setMenu(false)
+
+    document.getElementById(id)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
   }
-)
 
-elements.forEach((element) => {
-  observer.observe(element)
-})
-
-const updateProgress = () => {
-  const max =
-    document.documentElement.scrollHeight -
-    window.innerHeight
-
-  setProgress(
-    max > 0 ? window.scrollY / max : 0
-  )
-
-  document.documentElement.style.setProperty(
-    '--scroll',
-    `${window.scrollY}px`
-  )
-}
-
-const onMove = (e: MouseEvent) => {
-  document.documentElement.style.setProperty(
-    '--mx',
-    `${e.clientX}px`
-  )
-
-  document.documentElement.style.setProperty(
-    '--my',
-    `${e.clientY}px`
-  )
-}
-
-window.addEventListener(
-  'scroll',
-  updateProgress,
-  { passive: true }
-)
-
-window.addEventListener(
-  'mousemove',
-  onMove
-)
-
-updateProgress()
-
-return () => {
-  observer.disconnect()
-
-  window.removeEventListener(
-    'scroll',
-    updateProgress
-  )
-
-  window.removeEventListener(
-    'mousemove',
-    onMove
-  )
-}
-```
-
-}, [])
-
-const go = (id: string) => {
-setMenu(false)
-
-```
-document
-  .getElementById(id)
-  ?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
-  })
-```
-
-}
-
-return ( <main> <div className="cursorGlow" />
-
-```
-  <div
-    className="progress"
-    style={{
-      transform: `scaleX(${progress})`,
-    }}
-  />
-
-  <nav className="nav">
-    <button
-      className="brand"
-      onClick={() => go('top')}
-    >
-      IRSHAD<span>.</span>
-    </button>
-
-    <div
-      className={`links ${
-        menu ? 'open' : ''
-      }`}
-    >
-      {[
-        'about',
-        'experience',
-        'work',
-        'education',
-        'contact',
-      ].map((item) => (
-        <button
-          key={item}
-          onClick={() => go(item)}
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-
-    <button
-      className="menu"
-      onClick={() => setMenu(!menu)}
-      aria-label="Toggle navigation"
-    >
-      {menu ? 'CLOSE' : 'MENU'}
-    </button>
-  </nav>
-
-  {/* HERO */}
-
-  <section
-    id="top"
-    className="hero section"
-  >
-    <div className="heroImageWrap reveal">
-      <img
-        className="heroImage"
-        src="/irshad-cinematic-portfolioo/irshad.jpg"
-        alt="Irshad in London"
+  return (
+    <main>
+      <div
+        className="scrollProgress"
+        style={{
+          transform: `scaleX(${progress})`,
+        }}
       />
-    </div>
 
-    <div className="heroShade" />
+      <div className="cursorGlow" />
 
-    <div className="heroContent">
-      <div className="eyebrow reveal">
-        PORTFOLIO · 2026 · LONDON / SRI LANKA
-      </div>
+      <nav className="nav">
+        <button
+          className="navLogo"
+          onClick={() => go('home')}
+          aria-label="Go to home"
+        >
+          IRSHAD<span>.</span>
+        </button>
 
-      <div className="heroTitle reveal">
-        <span>BUSINESS</span>
+        <div className={`navLinks ${menu ? 'open' : ''}`}>
+          <button onClick={() => go('about')}>ABOUT</button>
+          <button onClick={() => go('experience')}>EXPERIENCE</button>
+          <button onClick={() => go('work')}>WORK</button>
+          <button onClick={() => go('capabilities')}>
+            CAPABILITIES
+          </button>
+          <button onClick={() => go('education')}>EDUCATION</button>
+          <button onClick={() => go('contact')}>CONTACT</button>
+        </div>
 
-        <br />
+        <button
+          className="menuButton"
+          onClick={() => setMenu(!menu)}
+          aria-label="Toggle menu"
+        >
+          {menu ? 'CLOSE' : 'MENU'}
+        </button>
+      </nav>
 
-        <span className="accent">
-          MEETS
-        </span>
-
-        <br />
-
-        <span>DIGITAL.</span>
-      </div>
-
-      <div className="heroIntro reveal">
-        <p>MOHAMED IRSHAD</p>
-
-        <span>
-          INTERNATIONAL BUSINESS · SALES · CUSTOMER EXPERIENCE
-        </span>
-      </div>
-    </div>
-
-    <div className="heroBottom reveal">
-      <p>
-        7+ YEARS
-        <br />
-        PROFESSIONAL EXPERIENCE
-      </p>
-
-      <button
-        className="circleBtn"
-        onClick={() => go('about')}
-        aria-label="Scroll to about"
-      >
-        ↓
-      </button>
-
-      <p className="right">
-        BUILDING BETTER
-        <br />
-        BUSINESS EXPERIENCES
-      </p>
-    </div>
-  </section>
-
-  {/* ABOUT */}
-
-  <section
-    id="about"
-    className="section about"
-  >
-    <div className="sectionLabel reveal">
-      01 / ABOUT
-    </div>
-
-    <div className="aboutGrid">
-      <h2 className="reveal">
-        I CONNECT
-        <br />
-
-        <span className="accent">
-          PEOPLE.
-        </span>
-
-        <br />
-
-        BUSINESS.
-        <br />
-        EXPERIENCE.
-      </h2>
-
-      <div className="aboutCopy reveal">
-        <p>
-          Commercially driven business professional
-          with a Master’s degree in International
-          Business Management and First-Class
-          Honours, with 7+ years across business
-          development, sales, operations, hospitality
-          and stakeholder engagement.
-        </p>
-
-        <p>
-          My strength is connecting people,
-          commercial goals and practical execution —
-          with a growing focus on digital experiences
-          and technology.
-        </p>
-
-        <div className="stats">
-          <div>
-            <b>7+</b>
-
-            <span>
-              YEARS
-              <br />
-              EXPERIENCE
-            </span>
+      <section id="home" className="hero">
+        <div className="heroContent">
+          <div className="eyebrow reveal">
+            PORTFOLIO · 2026 · LONDON / SRI LANKA
           </div>
 
-          <div>
-            <b>3</b>
+          <h1 className="heroTitle reveal">
+            BUSINESS
+            <br />
+            <span className="accent">MEETS</span>
+            <br />
+            DIGITAL.
+          </h1>
 
-            <span>
-              ACADEMIC
+          <div className="heroBottom reveal">
+            <p>
+              Mohamed Irshad
               <br />
-              QUALIFICATIONS
-            </span>
-          </div>
+              International Business · Sales · Customer Experience
+            </p>
 
-          <div>
-            <b>3</b>
-
-            <span>
-              LANGUAGES
-              <br />
-              IN PROFILE
-            </span>
+            <button onClick={() => go('about')}>
+              EXPLORE ↓
+            </button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  {/* EXPERIENCE */}
+        <div className="heroImageWrap reveal">
+          <img
+            className="heroImage"
+            src="/irshad-cinematic-portfolioo/irshad.jpg"
+            alt="Mohamed Irshad"
+          />
+        </div>
+      </section>
 
-  <section
-    id="experience"
-    className="section experience"
-  >
-    <div className="sectionLabel reveal">
-      02 / EXPERIENCE
-    </div>
+      <section id="about" className="section about">
+        <div className="sectionLabel reveal">
+          01 / ABOUT
+        </div>
 
-    <h2 className="mega reveal">
-      SELECTED
-      <br />
+        <div className="aboutGrid">
+          <h2 className="sectionTitle reveal">
+            BUILDING
+            <br />
+            <span className="accent">BUSINESS.</span>
+          </h2>
 
-      <span className="accent">
-        EXPERIENCE.
-      </span>
-    </h2>
+          <div className="aboutText reveal">
+            <p>
+              International Business professional with experience
+              across sales, hospitality, customer experience and
+              business development.
+            </p>
 
-    <div className="timeline">
-      {experience.map((item, i) => (
-        <article
-          className="experienceRow reveal"
-          key={item.role}
-        >
-          <span className="num">
-            0{i + 1}
-          </span>
+            <p>
+              I bring together commercial thinking, relationship
+              management and digital awareness to create practical
+              business solutions and memorable customer experiences.
+            </p>
 
-          <span className="year">
-            {item.year}
-          </span>
-
-          <div>
-            <h3>{item.role}</h3>
-
-            <h4>{item.company}</h4>
-
-            <p>{item.text}</p>
+            <p>
+              My experience spans London and Colombo, working with
+              international organisations and customer-facing
+              environments.
+            </p>
           </div>
+        </div>
+      </section>
 
-          <span className="arrow">
-            ↗
-          </span>
-        </article>
-      ))}
-    </div>
-  </section>
+      <section id="experience" className="section experience">
+        <div className="sectionLabel reveal">
+          02 / EXPERIENCE
+        </div>
 
-  {/* WORK */}
+        <div className="experienceList">
+          {experience.map((item, index) => (
+            <article
+              className="experienceItem reveal"
+              key={`${item.company}-${index}`}
+            >
+              <div className="experienceYear">
+                {item.year}
+              </div>
 
-  <section
-    id="work"
-    className="section work"
-  >
-    <div className="sectionLabel reveal">
-      03 / SELECTED WORK
-    </div>
+              <div className="experienceMain">
+                <h3>{item.role}</h3>
 
-    <h2 className="mega reveal">
-      THINK.
-      <br />
+                <p>
+                  {item.company} · {item.location}
+                </p>
+              </div>
 
-      <span className="accent">
-        BUILD.
-      </span>
+              <div className="experienceNumber">
+                0{index + 1}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <br />
+      <section id="work" className="section work">
+        <div className="sectionLabel reveal">
+          03 / SELECTED WORK
+        </div>
 
-      DELIVER.
-    </h2>
-
-    <div className="workGrid">
-      <article className="workCard reveal">
-        <span>CASE STUDY 01</span>
-
-        <h3>
-          CSR × CUSTOMER
-          <br />
-          SATISFACTION
-        </h3>
-
-        <p>
-          Master’s dissertation research examining
-          the impact of corporate social
-          responsibility on customer satisfaction
-          and corporate reputation, with reference
-          to Costco UK.
-        </p>
-
-        <b>
-          INTERNATIONAL BUSINESS · RESEARCH
-        </b>
-      </article>
-
-      <article className="workCard dark reveal">
-        <span>CASE STUDY 02</span>
-
-        <h3>
-          CUSTOMER LOYALTY ×
-          <br />
-          ORGANISATIONAL PERFORMANCE
-        </h3>
-
-        <p>
-          Bachelor’s dissertation exploring how
-          customer loyalty can affect organisational
-          performance, with reference to Dialog
-          Broadband Networks.
-        </p>
-
-        <b>
-          CUSTOMER EXPERIENCE · STRATEGY
-        </b>
-      </article>
-    </div>
-
-    <div className="githubCard reveal">
-      <div>
-        <span>BUILD IN PUBLIC</span>
-
-        <h3>
-          THE NEXT PROJECT
-          <br />
-
-          <span className="accent">
-            STARTS HERE.
-          </span>
-        </h3>
-      </div>
-
-      <a
-        href="https://github.com/irshadazka2415"
-        target="_blank"
-        rel="noreferrer"
-      >
-        GITHUB ↗
-      </a>
-    </div>
-  </section>
-
-  {/* SKILLS */}
-
-  <section className="section skills">
-    <div className="sectionLabel reveal">
-      04 / CAPABILITIES
-    </div>
-
-    <h2 className="mega reveal">
-      WHAT I
-      <br />
-
-      <span className="accent">
-        BRING.
-      </span>
-    </h2>
-
-    <div className="skillCloud reveal">
-      {skills.map((skill, i) => (
-        <span
-          key={skill}
-          style={
-            {
-              '--i': i,
-            } as React.CSSProperties
-          }
-        >
-          {skill}
-        </span>
-      ))}
-    </div>
-  </section>
-
-  {/* EDUCATION */}
-
-  <section
-    id="education"
-    className="section education"
-  >
-    <div className="sectionLabel reveal">
-      05 / EDUCATION
-    </div>
-
-    <div className="eduList">
-      {education.map(
-        ([degree, university, years], i) => (
-          <article
-            className="eduRow reveal"
-            key={degree}
-          >
-            <span>
-              0{i + 1}
-            </span>
+        <div className="workGrid">
+          <article className="workCard reveal">
+            <div className="workNumber">01</div>
 
             <div>
-              <h3>{degree}</h3>
+              <span>MASTER'S DISSERTATION</span>
 
-              <p>{university}</p>
+              <h3>
+                CSR × CUSTOMER
+                <br />
+                SATISFACTION
+              </h3>
+
+              <p>
+                Research examining the relationship between
+                corporate social responsibility and customer
+                satisfaction within Costco UK.
+              </p>
             </div>
-
-            <time>{years}</time>
           </article>
-        )
-      )}
-    </div>
-  </section>
 
-  {/* CONTACT */}
+          <article className="workCard reveal">
+            <div className="workNumber">02</div>
 
-  <section
-    id="contact"
-    className="section contact"
-  >
-    <div className="sectionLabel reveal">
-      06 / GET IN TOUCH
-    </div>
+            <div>
+              <span>BACHELOR'S DISSERTATION</span>
 
-    <h2 className="contactTitle reveal">
-      MOHAMED
-      <br />
+              <h3>
+                CUSTOMER LOYALTY ×
+                <br />
+                PERFORMANCE
+              </h3>
 
-      <span className="accent">
-        IRSHAD.
-      </span>
-    </h2>
+              <p>
+                Research investigating customer loyalty and
+                organisational performance within Dialog
+                Broadband Networks.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <div className="contactLine reveal">
-      <a href="mailto:Irshadgck@outlook.com">
-        IRSHADGCK@OUTLOOK.COM
-      </a>
+      <section id="capabilities" className="section capabilities">
+        <div className="sectionLabel reveal">
+          04 / CAPABILITIES
+        </div>
 
-      <a
-        href="https://github.com/irshadazka2415"
-        target="_blank"
-        rel="noreferrer"
-      >
-        GITHUB ↗
-      </a>
-    </div>
+        <div className="capabilitiesGrid">
+          <h2 className="sectionTitle reveal">
+            WHAT I
+            <br />
+            <span className="accent">BRING.</span>
+          </h2>
 
-    <footer>
-      <span>IRSHAD.</span>
+          <div className="skillsList">
+            {skills.map((skill, index) => (
+              <div
+                className="skillItem reveal"
+                key={skill}
+              >
+                <span>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
 
-      <span>
-        BUSINESS · DIGITAL · EXPERIENCE
-      </span>
+                <strong>{skill}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <span>© 2026</span>
-    </footer>
-  </section>
-</main>
-```
+      <section id="education" className="section education">
+        <div className="sectionLabel reveal">
+          05 / EDUCATION
+        </div>
 
-)
+        <div className="educationList">
+          {education.map((item, index) => (
+            <article
+              className="educationItem reveal"
+              key={item.school}
+            >
+              <div className="educationYear">
+                {item.year}
+              </div>
+
+              <div className="educationMain">
+                <h3>{item.degree}</h3>
+
+                <p>{item.school}</p>
+              </div>
+
+              <div className="educationNumber">
+                0{index + 1}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" className="section contact">
+        <div className="sectionLabel reveal">
+          06 / GET IN TOUCH
+        </div>
+
+        <h2 className="contactTitle reveal">
+          MOHAMED
+          <br />
+          <span className="accent">
+            IRSHAD.
+          </span>
+        </h2>
+
+        <div className="contactLine reveal">
+          <a href="mailto:Irshadgck@outlook.com">
+            IRSHADGCK@OUTLOOK.COM
+          </a>
+
+          <a
+            href="https://github.com/irshadazka2415"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GITHUB ↗
+          </a>
+        </div>
+
+        <footer>
+          <span>IRSHAD.</span>
+          <span>BUSINESS · DIGITAL · EXPERIENCE</span>
+          <span>© 2026</span>
+        </footer>
+      </section>
+    </main>
+  )
 }
+```
