@@ -229,7 +229,7 @@ transform: `scaleX(${progress})`,
     <div className="heroImageWrap reveal">
       <img
         className="heroImage"
-        src="/irshad-cinematic-portfolioo/irshad.jpg"
+        src="/portfolio/irshad.jpg"
         alt="Mohamed Irshad"
       />
     </div>
@@ -423,7 +423,7 @@ transform: `scaleX(${progress})`,
       </a>
 
       <a
-        href="https://github.com/irshadazka2415"
+        href="https://github.com/irshadgck"
         target="_blank"
         rel="noreferrer"
       >
