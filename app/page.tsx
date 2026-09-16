@@ -3,12 +3,42 @@
 import { useEffect, useState } from 'react'
 
 const experience = [
-{ year: '2025 — 2026', role: 'Cluster & Meetings Group Sales', company: 'The Clermont Group · London', text: 'Relationship building, meeting coordination, administration and cross-functional business operations.' },
-{ year: '2023 — 2025', role: 'Business & Hospitality Operations · MBA Placement', company: 'Royal Horseguards Hotel · London', text: 'Business development, guest relations, events, sales & marketing, operational coordination and customer experience.' },
-{ year: '2022 — 2023', role: 'Finance Work Experience Mentee', company: 'PwC · London', text: 'Mentoring, networking and exposure to audit, risk and professional business operations.' },
-{ year: '2022 — 2023', role: 'External Assessor', company: 'City of London College · London', text: 'Student mentoring, development planning and employability workshops.' },
-{ year: '2018 — 2019', role: 'Business Development Executive', company: 'Plus Business Solutions · Colombo', text: 'Customer needs assessment, relationship management and sales across the product/service portfolio.' },
-{ year: '2018', role: 'Tele Business Development Executive', company: 'W. I Tel Solutions · Colombo', text: 'Marketing reports, sales data and campaign development.' },
+{
+year: '2025 — 2026',
+role: 'Cluster & Meetings Group Sales',
+company: 'The Clermont Group · London',
+text: 'Relationship building, meeting coordination, administration and cross-functional business operations.',
+},
+{
+year: '2023 — 2025',
+role: 'Business & Hospitality Operations · MBA Placement',
+company: 'Royal Horseguards Hotel · London',
+text: 'Business development, guest relations, events, sales & marketing, operational coordination and customer experience.',
+},
+{
+year: '2022 — 2023',
+role: 'Finance Work Experience Mentee',
+company: 'PwC · London',
+text: 'Mentoring, networking and exposure to audit, risk and professional business operations.',
+},
+{
+year: '2022 — 2023',
+role: 'External Assessor',
+company: 'City of London College · London',
+text: 'Student mentoring, development planning and employability workshops.',
+},
+{
+year: '2018 — 2019',
+role: 'Business Development Executive',
+company: 'Plus Business Solutions · Colombo',
+text: 'Customer needs assessment, relationship management and sales across the product/service portfolio.',
+},
+{
+year: '2018',
+role: 'Tele Business Development Executive',
+company: 'W. I Tel Solutions · Colombo',
+text: 'Marketing reports, sales data and campaign development.',
+},
 ]
 
 const skills = [
@@ -23,13 +53,25 @@ const skills = [
 'SEO & Analytics',
 'Inventory & Operations',
 'Problem Solving',
-'MS Office'
+'MS Office',
 ]
 
 const education = [
-['Master’s in International Business Management', 'University of Greenwich', '2022 — 2024'],
-['Bachelor’s in International Business Management · First Class Honours', 'University of West London', '2020 — 2021'],
-['HND in Business Management · Marketing Special', 'Cardiff Metropolitan University', '2016 — 2018'],
+[
+'Master’s in International Business Management',
+'University of Greenwich',
+'2022 — 2024',
+],
+[
+'Bachelor’s in International Business Management · First Class Honours',
+'University of West London',
+'2020 — 2021',
+],
+[
+'HND in Business Management · Marketing Special',
+'Cardiff Metropolitan University',
+'2016 — 2018',
+],
 ]
 
 export default function Home() {
@@ -37,45 +79,79 @@ const [menu, setMenu] = useState(false)
 const [progress, setProgress] = useState(0)
 
 useEffect(() => {
-const reveal = () => {
 const elements = document.querySelectorAll('.reveal')
 
 ```
-  elements.forEach((el) => {
-    const rect = el.getBoundingClientRect()
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible')
+      }
+    })
+  },
+  {
+    threshold: 0.12,
+    rootMargin: '0px 0px -8% 0px',
+  }
+)
 
-    if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
-      el.classList.add('visible')
-    }
-  })
-}
+elements.forEach((element) => {
+  observer.observe(element)
+})
 
-const onScroll = () => {
-  const max = document.documentElement.scrollHeight - window.innerHeight
+const updateProgress = () => {
+  const max =
+    document.documentElement.scrollHeight -
+    window.innerHeight
 
-  setProgress(max > 0 ? window.scrollY / max : 0)
+  setProgress(
+    max > 0 ? window.scrollY / max : 0
+  )
 
   document.documentElement.style.setProperty(
     '--scroll',
     `${window.scrollY}px`
   )
-
-  reveal()
 }
 
 const onMove = (e: MouseEvent) => {
-  document.documentElement.style.setProperty('--mx', `${e.clientX}px`)
-  document.documentElement.style.setProperty('--my', `${e.clientY}px`)
+  document.documentElement.style.setProperty(
+    '--mx',
+    `${e.clientX}px`
+  )
+
+  document.documentElement.style.setProperty(
+    '--my',
+    `${e.clientY}px`
+  )
 }
 
-window.addEventListener('scroll', onScroll, { passive: true })
-window.addEventListener('mousemove', onMove)
+window.addEventListener(
+  'scroll',
+  updateProgress,
+  { passive: true }
+)
 
-requestAnimationFrame(reveal)
+window.addEventListener(
+  'mousemove',
+  onMove
+)
+
+updateProgress()
 
 return () => {
-  window.removeEventListener('scroll', onScroll)
-  window.removeEventListener('mousemove', onMove)
+  observer.disconnect()
+
+  window.removeEventListener(
+    'scroll',
+    updateProgress
+  )
+
+  window.removeEventListener(
+    'mousemove',
+    onMove
+  )
 }
 ```
 
@@ -83,25 +159,53 @@ return () => {
 
 const go = (id: string) => {
 setMenu(false)
-document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+
+```
+document
+  .getElementById(id)
+  ?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
+```
+
 }
 
 return ( <main> <div className="cursorGlow" />
-<div
-className="progress"
-style={{ transform: `scaleX(${progress})` }}
-/>
 
 ```
+  <div
+    className="progress"
+    style={{
+      transform: `scaleX(${progress})`,
+    }}
+  />
+
   <nav className="nav">
-    <button className="brand" onClick={() => go('top')}>
+    <button
+      className="brand"
+      onClick={() => go('top')}
+    >
       IRSHAD<span>.</span>
     </button>
 
-    <div className={`links ${menu ? 'open' : ''}`}>
-      {['about', 'experience', 'work', 'education', 'contact'].map((x) => (
-        <button key={x} onClick={() => go(x)}>
-          {x}
+    <div
+      className={`links ${
+        menu ? 'open' : ''
+      }`}
+    >
+      {[
+        'about',
+        'experience',
+        'work',
+        'education',
+        'contact',
+      ].map((item) => (
+        <button
+          key={item}
+          onClick={() => go(item)}
+        >
+          {item}
         </button>
       ))}
     </div>
@@ -115,7 +219,12 @@ style={{ transform: `scaleX(${progress})` }}
     </button>
   </nav>
 
-  <section id="top" className="hero section">
+  {/* HERO */}
+
+  <section
+    id="top"
+    className="hero section"
+  >
     <div className="heroImageWrap reveal">
       <img
         className="heroImage"
@@ -133,14 +242,21 @@ style={{ transform: `scaleX(${progress})` }}
 
       <div className="heroTitle reveal">
         <span>BUSINESS</span>
+
         <br />
-        <span className="accent">MEETS</span>
+
+        <span className="accent">
+          MEETS
+        </span>
+
         <br />
+
         <span>DIGITAL.</span>
       </div>
 
       <div className="heroIntro reveal">
         <p>MOHAMED IRSHAD</p>
+
         <span>
           INTERNATIONAL BUSINESS · SALES · CUSTOMER EXPERIENCE
         </span>
@@ -170,15 +286,27 @@ style={{ transform: `scaleX(${progress})` }}
     </div>
   </section>
 
-  <section id="about" className="section about">
-    <div className="sectionLabel reveal">01 / ABOUT</div>
+  {/* ABOUT */}
+
+  <section
+    id="about"
+    className="section about"
+  >
+    <div className="sectionLabel reveal">
+      01 / ABOUT
+    </div>
 
     <div className="aboutGrid">
       <h2 className="reveal">
         I CONNECT
         <br />
-        <span className="accent">PEOPLE.</span>
+
+        <span className="accent">
+          PEOPLE.
+        </span>
+
         <br />
+
         BUSINESS.
         <br />
         EXPERIENCE.
@@ -186,21 +314,25 @@ style={{ transform: `scaleX(${progress})` }}
 
       <div className="aboutCopy reveal">
         <p>
-          Commercially driven business professional with a Master’s degree
-          in International Business Management and First-Class Honours,
-          with 7+ years across business development, sales, operations,
-          hospitality and stakeholder engagement.
+          Commercially driven business professional
+          with a Master’s degree in International
+          Business Management and First-Class
+          Honours, with 7+ years across business
+          development, sales, operations, hospitality
+          and stakeholder engagement.
         </p>
 
         <p>
-          My strength is connecting people, commercial goals and practical
-          execution — with a growing focus on digital experiences and
-          technology.
+          My strength is connecting people,
+          commercial goals and practical execution —
+          with a growing focus on digital experiences
+          and technology.
         </p>
 
         <div className="stats">
           <div>
             <b>7+</b>
+
             <span>
               YEARS
               <br />
@@ -210,6 +342,7 @@ style={{ transform: `scaleX(${progress})` }}
 
           <div>
             <b>3</b>
+
             <span>
               ACADEMIC
               <br />
@@ -219,6 +352,7 @@ style={{ transform: `scaleX(${progress})` }}
 
           <div>
             <b>3</b>
+
             <span>
               LANGUAGES
               <br />
@@ -230,13 +364,23 @@ style={{ transform: `scaleX(${progress})` }}
     </div>
   </section>
 
-  <section id="experience" className="section experience">
-    <div className="sectionLabel reveal">02 / EXPERIENCE</div>
+  {/* EXPERIENCE */}
+
+  <section
+    id="experience"
+    className="section experience"
+  >
+    <div className="sectionLabel reveal">
+      02 / EXPERIENCE
+    </div>
 
     <h2 className="mega reveal">
       SELECTED
       <br />
-      <span className="accent">EXPERIENCE.</span>
+
+      <span className="accent">
+        EXPERIENCE.
+      </span>
     </h2>
 
     <div className="timeline">
@@ -245,22 +389,36 @@ style={{ transform: `scaleX(${progress})` }}
           className="experienceRow reveal"
           key={item.role}
         >
-          <span className="num">0{i + 1}</span>
-          <span className="year">{item.year}</span>
+          <span className="num">
+            0{i + 1}
+          </span>
+
+          <span className="year">
+            {item.year}
+          </span>
 
           <div>
             <h3>{item.role}</h3>
+
             <h4>{item.company}</h4>
+
             <p>{item.text}</p>
           </div>
 
-          <span className="arrow">↗</span>
+          <span className="arrow">
+            ↗
+          </span>
         </article>
       ))}
     </div>
   </section>
 
-  <section id="work" className="section work">
+  {/* WORK */}
+
+  <section
+    id="work"
+    className="section work"
+  >
     <div className="sectionLabel reveal">
       03 / SELECTED WORK
     </div>
@@ -268,8 +426,13 @@ style={{ transform: `scaleX(${progress})` }}
     <h2 className="mega reveal">
       THINK.
       <br />
-      <span className="accent">BUILD.</span>
+
+      <span className="accent">
+        BUILD.
+      </span>
+
       <br />
+
       DELIVER.
     </h2>
 
@@ -284,12 +447,16 @@ style={{ transform: `scaleX(${progress})` }}
         </h3>
 
         <p>
-          Master’s dissertation research examining the impact of corporate
-          social responsibility on customer satisfaction and corporate
-          reputation, with reference to Costco UK.
+          Master’s dissertation research examining
+          the impact of corporate social
+          responsibility on customer satisfaction
+          and corporate reputation, with reference
+          to Costco UK.
         </p>
 
-        <b>INTERNATIONAL BUSINESS · RESEARCH</b>
+        <b>
+          INTERNATIONAL BUSINESS · RESEARCH
+        </b>
       </article>
 
       <article className="workCard dark reveal">
@@ -302,12 +469,15 @@ style={{ transform: `scaleX(${progress})` }}
         </h3>
 
         <p>
-          Bachelor’s dissertation exploring how customer loyalty can affect
-          organisational performance, with reference to Dialog Broadband
-          Networks.
+          Bachelor’s dissertation exploring how
+          customer loyalty can affect organisational
+          performance, with reference to Dialog
+          Broadband Networks.
         </p>
 
-        <b>CUSTOMER EXPERIENCE · STRATEGY</b>
+        <b>
+          CUSTOMER EXPERIENCE · STRATEGY
+        </b>
       </article>
     </div>
 
@@ -318,7 +488,10 @@ style={{ transform: `scaleX(${progress})` }}
         <h3>
           THE NEXT PROJECT
           <br />
-          <span className="accent">STARTS HERE.</span>
+
+          <span className="accent">
+            STARTS HERE.
+          </span>
         </h3>
       </div>
 
@@ -332,6 +505,8 @@ style={{ transform: `scaleX(${progress})` }}
     </div>
   </section>
 
+  {/* SKILLS */}
+
   <section className="section skills">
     <div className="sectionLabel reveal">
       04 / CAPABILITIES
@@ -340,50 +515,68 @@ style={{ transform: `scaleX(${progress})` }}
     <h2 className="mega reveal">
       WHAT I
       <br />
-      <span className="accent">BRING.</span>
+
+      <span className="accent">
+        BRING.
+      </span>
     </h2>
 
     <div className="skillCloud reveal">
-      {skills.map((s, i) => (
+      {skills.map((skill, i) => (
         <span
-          key={s}
-          style={{ '--i': i } as React.CSSProperties}
+          key={skill}
+          style={
+            {
+              '--i': i,
+            } as React.CSSProperties
+          }
         >
-          {s}
+          {skill}
         </span>
       ))}
     </div>
   </section>
 
-  <section id="education" className="section education">
+  {/* EDUCATION */}
+
+  <section
+    id="education"
+    className="section education"
+  >
     <div className="sectionLabel reveal">
       05 / EDUCATION
     </div>
 
     <div className="eduList">
-      {education.map(([degree, uni, years], i) => (
-        <article
-          className="eduRow reveal"
-          key={degree}
-        >
-          <span>0{i + 1}</span>
+      {education.map(
+        ([degree, university, years], i) => (
+          <article
+            className="eduRow reveal"
+            key={degree}
+          >
+            <span>
+              0{i + 1}
+            </span>
 
-          <div>
-            <h3>{degree}</h3>
-            <p>{uni}</p>
-          </div>
+            <div>
+              <h3>{degree}</h3>
 
-          <time>{years}</time>
-        </article>
-      ))}
+              <p>{university}</p>
+            </div>
+
+            <time>{years}</time>
+          </article>
+        )
+      )}
     </div>
   </section>
 
-  {/* =========================
-      CONTACT
-  ========================= */}
+  {/* CONTACT */}
 
-  <section id="contact" className="section contact">
+  <section
+    id="contact"
+    className="section contact"
+  >
     <div className="sectionLabel reveal">
       06 / GET IN TOUCH
     </div>
@@ -391,7 +584,10 @@ style={{ transform: `scaleX(${progress})` }}
     <h2 className="contactTitle reveal">
       MOHAMED
       <br />
-      <span className="accent">IRSHAD.</span>
+
+      <span className="accent">
+        IRSHAD.
+      </span>
     </h2>
 
     <div className="contactLine reveal">
@@ -410,7 +606,11 @@ style={{ transform: `scaleX(${progress})` }}
 
     <footer>
       <span>IRSHAD.</span>
-      <span>BUSINESS · DIGITAL · EXPERIENCE</span>
+
+      <span>
+        BUSINESS · DIGITAL · EXPERIENCE
+      </span>
+
       <span>© 2026</span>
     </footer>
   </section>
