@@ -81,7 +81,6 @@ const [progress, setProgress] = useState(0)
 
 useEffect(() => {
 const elements = document.querySelectorAll('.reveal')
-
 ```
 const observer = new IntersectionObserver(
   (entries) => {
@@ -145,7 +144,6 @@ return () => {
 
 const go = (id: string) => {
 setMenu(false)
-
 ```
 document.getElementById(id)?.scrollIntoView({
   behavior: 'smooth',
@@ -155,14 +153,14 @@ document.getElementById(id)?.scrollIntoView({
 
 }
 
-return ( <main>
+return (
+  <main>
 <div
 className="scrollProgress"
 style={{
 transform: `scaleX(${progress})`,
 }}
 />
-
 ```
   <div className="cursorGlow" />
 
@@ -451,7 +449,5 @@ transform: `scaleX(${progress})`,
     </footer>
   </section>
 </main>
-```
-
 )
 }
