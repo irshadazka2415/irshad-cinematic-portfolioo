@@ -137,8 +137,6 @@ return () => {
   window.removeEventListener('scroll', updateProgress)
   window.removeEventListener('mousemove', onMove)
 }
-```
-
 }, [])
 
 const go = (id: string) => {
@@ -147,8 +145,6 @@ document.getElementById(id)?.scrollIntoView({
   behavior: 'smooth',
   block: 'start',
 })
-```
-
 }
 
 return (
