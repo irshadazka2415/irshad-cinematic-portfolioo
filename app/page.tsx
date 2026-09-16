@@ -81,7 +81,6 @@ const [progress, setProgress] = useState(0)
 
 useEffect(() => {
 const elements = document.querySelectorAll('.reveal')
-```
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -144,7 +143,6 @@ return () => {
 
 const go = (id: string) => {
 setMenu(false)
-```
 document.getElementById(id)?.scrollIntoView({
   behavior: 'smooth',
   block: 'start',
@@ -161,7 +159,6 @@ style={{
 transform: `scaleX(${progress})`,
 }}
 />
-```
   <div className="cursorGlow" />
 
   <nav className="nav">
