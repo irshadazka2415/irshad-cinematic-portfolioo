@@ -37,6 +37,16 @@ export default function Home() {
       document.documentElement.style.setProperty('--mx', `${e.clientX}px`)
       document.documentElement.style.setProperty('--my', `${e.clientY}px`)
     }
+    reveal()
+onScroll()
+
+window.addEventListener('scroll', onScroll)
+window.addEventListener('mousemove', onMove)
+
+return () => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('mousemove', onMove)
+}
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('mousemove', onMove)
     reveal(); onScroll()
