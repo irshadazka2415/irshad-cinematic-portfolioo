@@ -65,7 +65,8 @@ const education = [
   },
   {
     year: '2020—2021',
-    degree: "Bachelor's in International Business Management · First Class Honours",
+    degree:
+      "Bachelor's in International Business Management · First Class Honours",
     school: 'University of West London',
   },
   {
@@ -171,12 +172,16 @@ export default function Home() {
 
         <div className={`navLinks ${menu ? 'open' : ''}`}>
           <button onClick={() => go('about')}>ABOUT</button>
-          <button onClick={() => go('experience')}>EXPERIENCE</button>
+          <button onClick={() => go('experience')}>
+            EXPERIENCE
+          </button>
           <button onClick={() => go('work')}>WORK</button>
           <button onClick={() => go('capabilities')}>
             CAPABILITIES
           </button>
-          <button onClick={() => go('education')}>EDUCATION</button>
+          <button onClick={() => go('education')}>
+            EDUCATION
+          </button>
           <button onClick={() => go('contact')}>CONTACT</button>
         </div>
 
@@ -404,9 +409,7 @@ export default function Home() {
         <h2 className="contactTitle reveal">
           MOHAMED
           <br />
-          <span className="accent">
-            IRSHAD.
-          </span>
+          <span className="accent">IRSHAD.</span>
         </h2>
 
         <div className="contactLine reveal">
